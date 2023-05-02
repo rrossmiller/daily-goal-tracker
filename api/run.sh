@@ -1,4 +1,4 @@
 #! /bin/bash
 clear
-go build
+go build -x
 ./tracker-api
