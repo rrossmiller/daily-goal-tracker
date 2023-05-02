@@ -1,11 +1,13 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"tracker-api/models"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 // getAlbums responds with the list of all albums as JSON.
@@ -31,14 +33,27 @@ func GetDayById(c *gin.Context) {
 func PostDay(c *gin.Context) {
 	topic := c.Param("topic")
 	var goal models.Day
+	var goalIsFound models.Day
 
 	if err := c.BindJSON(&goal); err != nil {
 		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
-	fmt.Println(">>", topic, goal.ID, goal.PushUps, goal.SitUps, goal.Squats)
 
-	// DB.Save(&goal)
+	err := DB.First(&goalIsFound).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		DB.Save(&goal)
+		c.IndentedJSON(http.StatusCreated, goal)
+		return
+	}
 
+	switch topic {
+	case "pushUps":
+		DB.Model(&goal).Update("push_ups", goal.PushUps)
+	case "sitUps":
+		DB.Model(&goal).Update("sit_ups", goal.SitUps)
+	case "squats":
+		DB.Model(&goal).Update("squats", goal.Squats)
+	}
 	c.IndentedJSON(http.StatusCreated, goal)
 }
