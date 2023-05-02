@@ -45,7 +45,7 @@ function Slider(p: SliderProps) {
             default:
                 break;
         }
-        
+
         await fetch(`/api/days/${p.topic}`, {
             method: "POST",
             headers: {
@@ -77,7 +77,7 @@ function App() {
     const [sitUps, setSitUps] = useState(0);
     const [pushUps, setPushUps] = useState(0);
     const [squats, setSquats] = useState(0);
-    const [hideSlider, setHideSlider] = useState(false);
+    const [hideSlider, setHideSlider] = useState(true);
     const [sliderTopic, setSliderTopic] = useState("pushUps");
     const [sliderTopicTitle, setSliderTopicTitle] = useState("Push Ups");
 
@@ -93,7 +93,7 @@ function App() {
     }
 
     getData(today);
-
+    
     return (
         <div className='flex flex-col items-center'>
             <div className='my-20'>
