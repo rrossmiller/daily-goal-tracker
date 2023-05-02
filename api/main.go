@@ -21,7 +21,7 @@ func main() {
 	// authorized.POST("/days", PostDay)
 	r.GET("/days", GetDays)
 	r.GET("/days/:id", GetDayById)
-	r.POST("/days", PostDay)
+	r.POST("/days/:topic", PostDay)
 
 	// Listen and Server in 0.0.0.0:8080
 	config := cors.DefaultConfig()

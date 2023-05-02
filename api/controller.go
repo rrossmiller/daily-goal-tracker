@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"tracker-api/models"
 
@@ -28,13 +29,16 @@ func GetDayById(c *gin.Context) {
 }
 
 func PostDay(c *gin.Context) {
+	topic := c.Param("topic")
 	var goal models.Day
 
 	if err := c.BindJSON(&goal); err != nil {
 		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
+	fmt.Println(">>", topic, goal.ID, goal.PushUps, goal.SitUps, goal.Squats)
 
-	DB.Save(&goal)
+	// DB.Save(&goal)
+
 	c.IndentedJSON(http.StatusCreated, goal)
 }
