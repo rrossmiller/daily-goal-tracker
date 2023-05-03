@@ -30,11 +30,11 @@ function Slider(p: SliderProps) {
         reqData[p.topic] = val;
 
         switch (p.topic) {
-            case 'sit_ups':
+            case 'sitUps':
                 reqData['pushUps'] = 0;
                 reqData['squats'] = 0;
                 break;
-            case 'push_ups':
+            case 'pushUps':
                 reqData['sitUps'] = 0;
                 reqData['squats'] = 0;
                 break;
