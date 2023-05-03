@@ -140,7 +140,7 @@ function App() {
                 </button>
             </div>
             <h3 className='mt-5 text-lg'>Extra: {extra}</h3>
-            <div className='absolute bottom-[25%] w-11/12'>
+            <div className='absolute bottom-[15%] w-11/12'>
                 <Slider today={today} hide={hideSlider} topic={sliderTopic} topicTitle={sliderTopicTitle} getData={getData} />
             </div>
         </div>
