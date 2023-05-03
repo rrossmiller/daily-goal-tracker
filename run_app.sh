@@ -7,3 +7,4 @@ cd ../api
 echo "API"  >> ../pid.txt
 nohup ./tracker-api &
 echo $! >> ../pid.txt
+echo 'ps aux | grep 0.0.0.0' >> ../pid.txt
