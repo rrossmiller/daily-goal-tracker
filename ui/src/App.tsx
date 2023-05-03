@@ -73,10 +73,13 @@ function Slider(p: SliderProps) {
         </div>
     );
 }
+
+
 function App() {
     const [sitUps, setSitUps] = useState(0);
     const [pushUps, setPushUps] = useState(0);
     const [squats, setSquats] = useState(0);
+    const [extra, setExtra] = useState(0);
     const [hideSlider, setHideSlider] = useState(true);
     const [sliderTopic, setSliderTopic] = useState("pushUps");
     const [sliderTopicTitle, setSliderTopicTitle] = useState("Push Ups");
@@ -90,15 +93,18 @@ function App() {
         setSitUps((await data).sitUps);
         setPushUps((await data).pushUps);
         setSquats((await data).squats);
+        setExtra((await data).extra);
     }
 
     getData(today);
-    
+
     return (
         <div className='flex flex-col items-center'>
             <div className='my-20'>
+                {/* TODO add forward and back buttons to go around dates */}
                 <h1 className='text-3xl'>{today.toDateString()}</h1>
             </div>
+            {/* radial progress */}
             <div className='flex overflow-hidden'>
                 <button className="dsyradial-progress bg-primary text-primary-content border-4 border-primary align-center" style={{ "--value": sitUps, "--size": `${radialSize}rem` }}
                     onClick={() => {
@@ -133,6 +139,7 @@ function App() {
                     <div className='flex justify-center'>{squats}%</div>
                 </button>
             </div>
+            <h3 className='mt-5 text-lg'>Extra: {extra}</h3>
             <div className='absolute bottom-[25%] w-11/12'>
                 <Slider today={today} hide={hideSlider} topic={sliderTopic} topicTitle={sliderTopicTitle} getData={getData} />
             </div>

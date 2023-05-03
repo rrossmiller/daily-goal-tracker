@@ -53,6 +53,8 @@ func PostDay(c *gin.Context) {
 		DB.Model(&goal).Update("sit_ups", goal.SitUps)
 	case "squats":
 		DB.Model(&goal).Update("squats", goal.Squats)
+	case "extra":
+		DB.Model(&goal).Update("extra", goal.Extra)
 	}
 	c.IndentedJSON(http.StatusCreated, goal)
 }
