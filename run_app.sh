@@ -1,7 +1,7 @@
 cd ui
 echo "UI"  > ../pid.txt
 #nohup yarn dev --host 0.0.0.0 &
-yarn preview
+yarn preview & 
 echo $! >> ../pid.txt
 
 cd ../api
