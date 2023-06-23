@@ -4,7 +4,7 @@ echo "UI"  > ../pid.txt
 npm i -g serve
 echo "*********** build *************"
 yarn build
-serve -l 0.0.0.0 dist &
+./node_modules/.bin/serve -l 0.0.0.0 dist &
 echo $! >> ../pid.txt
 
 cd ../api
