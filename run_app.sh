@@ -2,8 +2,9 @@ cd ui
 echo "UI"  > ../pid.txt
 #nohup yarn dev --host 0.0.0.0 &
 npm i -g serve
+echo "*********** build *************"
 yarn build
-serve dist -l 0.0.0.0 &
+serve -l 0.0.0.0 dist &
 echo $! >> ../pid.txt
 
 cd ../api
