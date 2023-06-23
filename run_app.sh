@@ -1,8 +1,8 @@
 cd ui
 echo "UI"  > ../pid.txt
 #nohup yarn dev --host 0.0.0.0 &
-npm i -g serve
 echo "*********** build *************"
+yarn
 yarn build
 ./node_modules/.bin/serve -l 0.0.0.0 dist &
 echo $! >> ../pid.txt
