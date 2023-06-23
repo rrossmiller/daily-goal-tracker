@@ -1,6 +1,9 @@
 cd ui
 echo "UI"  > ../pid.txt
-nohup yarn dev --host 0.0.0.0 &
+#nohup yarn dev --host 0.0.0.0 &
+npm i -g serve
+yarn build
+serve dist -l 0.0.0.0 &
 echo $! >> ../pid.txt
 
 cd ../api
