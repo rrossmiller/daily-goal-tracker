@@ -1,8 +1,10 @@
 package main
 
 import (
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
+	"fmt"
+	"net/http"
+
+	"github.com/go-chi/cors"
 	"gorm.io/gorm"
 )
 
@@ -10,26 +12,20 @@ var DB *gorm.DB
 
 func main() {
 	DB = getDB()
-	r := gin.Default()
+	router := http.NewServeMux()
+	router.HandleFunc("GET /days", GetDays)
+	router.HandleFunc("GET /days/{id}", GetDayById)
+	router.HandleFunc("POST /days/{topic}", PostDay)
 
-	// authorized := r.Group("/", gin.BasicAuth(gin.Accounts{
-	// 	"usr": "abcdefg", // todo put in env - load on startup
-	// }))
+	handler := ChainMiddleware(router,
+		Logger(), // recoverer already included from RequestLogger by default
+		cors.AllowAll().Handler,
+		// middleware.Auth, // TODO: need auth server. --> go-chi/oauth can make server
+	)
+	port := "0.0.0.0:8080"
+	s := http.Server{Addr: port, Handler: handler}
 
-	// authorized.GET("/days", GetDays)
-	// authorized.GET("/days/:id", GetDayById)
-	// authorized.POST("/days", PostDay)
-	r.GET("/days", GetDays)
-	r.GET("/days/:id", GetDayById)
-	r.POST("/days/:topic", PostDay)
+	fmt.Printf("Server running on port %s\n", port)
+	s.ListenAndServe()
 
-	// Listen and Server in 0.0.0.0:8080
-	config := cors.DefaultConfig()
-	// config.AllowOrigins = []string{"*"}
-	config.AllowAllOrigins = true
-	config.AllowCredentials = true
-	r.Use(cors.New(config))
-
-	// r.Use(cors.Default())
-	r.Run("0.0.0.0:8080")
 }
