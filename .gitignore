@@ -1,5 +1,4 @@
 api/tracker-api
-
 nohup.out
-
 pid.txt
+*.log
