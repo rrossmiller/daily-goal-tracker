@@ -13,7 +13,9 @@ var DB *gorm.DB
 func main() {
 	DB = getDB()
 	router := http.NewServeMux()
-	router.HandleFunc("GET /days", GetDays)
+	router.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("ok"))
+	})
 	router.HandleFunc("GET /days/{id}", GetDayById)
 	router.HandleFunc("POST /days/{topic}", PostDay)
 
