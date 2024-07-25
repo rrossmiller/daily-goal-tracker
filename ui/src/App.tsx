@@ -2,7 +2,7 @@
  * Don't use this as an example of good practices 😉
  * ... It works for me
  */
-import {useState} from 'react';
+import { useState } from 'react';
 import './App.css';
 
 interface Response {
@@ -20,6 +20,8 @@ interface SliderProps {
     topicTitle: string;
     getData(date: Date): void;
 }
+
+const API_URL = "http://pi3.local:8080"
 function Slider(p: SliderProps) {
     const [val, setVal] = useState(0);
 
@@ -47,7 +49,7 @@ function Slider(p: SliderProps) {
                 break;
         }
 
-        await fetch(`/api/days/${p.topic}`, {
+        await fetch(`${API_URL}/days/${p.topic}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -98,11 +100,16 @@ function App() {
 
     async function getData(date: Date) {
         const pth = `${date.getDate()}${date.getMonth()}${date.getUTCFullYear()}`;
-        const data: Promise<Response> = (await fetch(`/api/days/${pth}`)).json();
-        setSitUps((await data).sitUps);
-        setPushUps((await data).pushUps);
-        setSquats((await data).squats);
-        setExtra((await data).extra);
+        const r = await fetch(`${API_URL}/days/${pth}`);
+        console.log(r);
+        if (r.status === 200) {
+            const data: Response = await r.json();
+
+            setSitUps(data.sitUps);
+            setPushUps(data.pushUps);
+            setSquats(data.squats);
+            setExtra(data.extra);
+        }
     }
 
     getData(today);
@@ -117,7 +124,7 @@ function App() {
             <div className='flex overflow-hidden'>
                 <button
                     className='dsyradial-progress bg-primary text-primary-content border-4 border-primary align-center'
-                    style={{'--value': sitUps, '--size': `${radialSize}rem`}}
+                    style={{ '--value': sitUps, '--size': `${radialSize}rem` }}
                     onClick={() => {
                         setHideSlider(!hideSlider);
                         setSliderTopic('sitUps');
@@ -130,7 +137,7 @@ function App() {
 
                 <button
                     className='dsyradial-progress bg-primary text-primary-content border-4 border-primary align-center mx-2'
-                    style={{'--value': pushUps, '--size': `${radialSize}rem`}}
+                    style={{ '--value': pushUps, '--size': `${radialSize}rem` }}
                     onClick={() => {
                         setHideSlider(!hideSlider);
                         setSliderTopic('pushUps');
@@ -143,7 +150,7 @@ function App() {
 
                 <button
                     className='dsyradial-progress bg-primary text-primary-content border-4 border-primary align-center'
-                    style={{'--value': squats, '--size': `${radialSize}rem`}}
+                    style={{ '--value': squats, '--size': `${radialSize}rem` }}
                     onClick={() => {
                         setHideSlider(!hideSlider);
                         setSliderTopic('squats');

@@ -1,4 +1,5 @@
 # if the data doesn't exist move it to where the tracker-api can read it
+./pid.sh
 if [[ ! -f data.db ]]; then
   mv ~/data.db .
 fi
