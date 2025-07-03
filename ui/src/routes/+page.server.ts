@@ -5,6 +5,7 @@ export async function load() {
 	const date = new Date();
 	const pth = `${date.getDate()}${date.getMonth()}${date.getUTCFullYear()}`;
 	const r = await fetch(`http://localhost:8080/days/${pth}`);
+	// const r = await fetch(`http://piw.local:8080/days/${pth}`);
 	const data = await r.json();
 	return {
 		pushUps: data.pushUps,

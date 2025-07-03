@@ -26,6 +26,7 @@ func main() {
 		// middleware.Auth, // TODO: need auth server. --> go-chi/oauth can make server
 	)
 	port := "0.0.0.0:8080"
+	// port := ":8080"
 	s := http.Server{Addr: port, Handler: handler}
 
 	fmt.Printf("Server running on port %s\n", port)

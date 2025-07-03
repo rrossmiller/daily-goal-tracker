@@ -1,4 +1,4 @@
-const API_URL = 'http://pi3.local:8080';
+const API_URL = 'http://piw.local:8080';
 // const API_URL = 'http://localhost:8080';
 
 export async function getData(date: Date): Promise<DataResponse> {
