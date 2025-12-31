@@ -1,5 +1,5 @@
-const API_URL = 'http://piw.local:8080';
-// const API_URL = 'http://localhost:8080';
+// const API_URL = 'http://piw.local:8080';
+const API_URL = 'http://localhost:8080';
 
 export async function getData(date: Date): Promise<DataResponse> {
 	const pth = `${date.getDate()}${date.getMonth()}${date.getUTCFullYear()}`;
@@ -34,7 +34,7 @@ export async function saveData(date: Date, topic: string, val: number) {
 			reqData['squats'] = 0;
 			reqData['pushUps'] = val;
 			break;
-		case 'Meditate':
+		case 'Pull Ups':
 			dbTopic = 'squats';
 			reqData['pushUps'] = 0;
 			reqData['sitUps'] = 0;

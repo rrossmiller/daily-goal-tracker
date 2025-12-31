@@ -10,6 +10,6 @@ export async function load() {
 	return {
 		pushUps: data.pushUps,
 		sitUps: data.sitUps,
-		meditation: data.squats
+		pullUps: data.squats
 	};
 }

@@ -35,7 +35,7 @@ func PostDay(w http.ResponseWriter, r *http.Request) {
 	var goal models.Day
 	var goalIsFound models.Day
 	if err := json.Unmarshal(body, &goal); err != nil {
-		w.Write([]byte(fmt.Sprintf(`{"message":"%v"}`, err.Error())))
+		fmt.Fprintf(w, `{"message":"%v"}`, err.Error())
 		return
 	}
 
@@ -65,7 +65,7 @@ func write(w http.ResponseWriter, obj any) bool {
 		w.Header().Add("Content-Type", "application/json")
 		w.Write([]byte(out))
 	} else {
-		w.Write([]byte(fmt.Sprintf(`{"message":"%v"}`, err.Error())))
+		fmt.Fprintf(w, `{"message":"%v"}`, err.Error())
 		return false
 	}
 

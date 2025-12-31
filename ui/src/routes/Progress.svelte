@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { saveData } from '$lib/data';
-
 	const radialSize = 7;
 	let { val, name, callback, total = 100 }: ProgressProps = $props();
 
@@ -9,7 +7,7 @@
 
 <div class="text-white">
 	<button
-		class="align-center border-steel-blue-700 bg-steel-blue-700 dsyradial-progress border-4"
+		class="align-center dsyradial-progress border-4 border-steel-blue-700 bg-steel-blue-700"
 		style="--value: {progress}; --size: {radialSize}rem"
 		onclick={() => callback(name)}
 	>

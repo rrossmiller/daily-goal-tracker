@@ -8,9 +8,17 @@
 
 	let sitUps = $state(data.sitUps);
 	let pushUps = $state(data.pushUps);
-	let meditate = $state(data.meditation);
+	let pullUps = $state(data.pullUps);
 	let sliderVisible = $state(false);
 	let activeDial = $state('');
+
+	let pushUpsGoal = 100;
+	let sitUpsGoal = 100;
+	let pullUpsGoal = 30;
+
+	let pushUpsUpdate = 20;
+	let sitUpsUpdate = 20;
+	let pullUpsUpdate = 5;
 
 	function toggleSlider(name: string) {
 		// if a new progress dial is clicked, don't hide. just change name
@@ -32,23 +40,23 @@
 			case 'Push Ups':
 				pushUps = value;
 				break;
-			case 'Meditate':
-				meditate = value;
+			case 'Pull Ups':
+				pullUps = value;
 				break;
 		}
 		saveData(date, name, value);
 	}
 </script>
 
-<div class="bg-steel-blue-950 flex h-screen flex-col items-center text-white">
+<div class="flex h-screen flex-col items-center bg-steel-blue-950 text-white">
 	<h1 class=" my-20 text-3xl">{date.toDateString()}</h1>
 	<!-- radial progress  -->
 	<div class="flex overflow-hidden">
-		<Progress val={sitUps} name={'Sit Ups'} callback={toggleSlider} total={100} />
+		<Progress val={sitUps} name={'Sit Ups'} callback={toggleSlider} total={sitUpsGoal} />
 		<div class="mx-1"></div>
-		<Progress val={pushUps} name={'Push Ups'} callback={toggleSlider} total={100} />
+		<Progress val={pushUps} name={'Push Ups'} callback={toggleSlider} total={pushUpsGoal} />
 		<div class="mx-1"></div>
-		<Progress val={meditate} name={'Meditate'} callback={toggleSlider} total={15} />
+		<Progress val={pullUps} name={'Pull Ups'} callback={toggleSlider} total={pullUpsGoal} />
 	</div>
 
 	<div class="mt-5"></div>
@@ -64,7 +72,7 @@
 
 				pushUps = data.pushUps;
 				sitUps = data.sitUps;
-				meditate = data.squats;
+				pullUps = data.squats;
 			}}
 		>
 			<!-- ! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc.  -->
@@ -82,7 +90,7 @@
 				const data = await getData(date);
 				pushUps = data.pushUps;
 				sitUps = data.sitUps;
-				meditate = data.squats;
+				pullUps = data.squats;
 			}}
 		>
 			<!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
@@ -99,7 +107,7 @@
 				const data = await getData(date);
 				pushUps = data.pushUps;
 				sitUps = data.sitUps;
-				meditate = data.squats;
+				pullUps = data.squats;
 			}}
 		>
 			<!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
@@ -112,12 +120,24 @@
 	</div>
 	{#if sliderVisible && activeDial === 'Sit Ups'}
 		<div class="mt-5"></div>
-		<Slider val={sitUps} {activeDial} {updateProgress} />
+		<Slider max={sitUpsGoal} quantity={sitUpsUpdate} val={sitUps} {activeDial} {updateProgress} />
 	{:else if sliderVisible && activeDial === 'Push Ups'}
 		<div class="mt-5"></div>
-		<Slider val={pushUps} {activeDial} {updateProgress} />
-	{:else if sliderVisible && activeDial === 'Meditate'}
+		<Slider
+			max={pushUpsGoal}
+			val={pushUps}
+			quantity={pushUpsUpdate}
+			{activeDial}
+			{updateProgress}
+		/>
+	{:else if sliderVisible && activeDial === 'Pull Ups'}
 		<div class="mt-5"></div>
-		<Slider val={meditate} {activeDial} {updateProgress} />
+		<Slider
+			max={pullUpsGoal}
+			val={pullUps}
+			quantity={pullUpsUpdate}
+			{activeDial}
+			{updateProgress}
+		/>
 	{/if}
 </div>
